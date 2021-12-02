@@ -4,6 +4,7 @@ from flask_cors import CORS
 import os
 import models
 from resources.users import users # why can't I set the import name as user
+from resources.cliques import cliques
 
 DEBUG = True
 PORT = 8000
@@ -13,8 +14,10 @@ app = Flask(__name__)
 
 # CORS
 CORS(users, origins=['http://localhost:3000'], supports_credentials=True)
+CORS(cliques, origins=['http://localhost:3000'], supports_credentials=True)
 
 app.register_blueprint(users, url_prefix='/api/v1/users')
+app.register_blueprint(cliques, url_prefix='/api/v1/cliques')
 
 
 # this needs to be after blueprint
