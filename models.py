@@ -19,6 +19,7 @@ class User(UserMixin, Model):
     username = CharField(unique=True)
     email = CharField(unique=True)
     password = CharField()
+    confirm_password = CharField()
 
     class Meta:
         database = DATABASE
@@ -49,6 +50,7 @@ class Title(Model):
 def initialize():
     DATABASE.connect()
 
+    # DATABASE.drop_tables([User])
     DATABASE.create_tables([User, Clique, Title], safe=True)
     print("Connected on the DB and created tables if they don't already exist 🎉")
 
