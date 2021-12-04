@@ -13,6 +13,9 @@ users = Blueprint('users', 'users') # why can't I set the import name as 'user'
 def test_user_route():
     return 'user route works'
 
+
+
+# USER SIGNUP ROUTE
 @users.route('/signup', methods=['POST'])
 def signup():
 
@@ -67,3 +70,46 @@ def signup():
                 message = f"Successfully registered {created_user_dict['username']}.",
                 status = 201
             ), 201
+
+
+# USER LOGIN ROUTE
+@users.route('/login', methods=['POST'])
+def login():
+    payload = request.get_json()
+    payload['email'] = payload['email'].lower()
+
+    try:
+        user = models.User.get(models.User.email == payload['email'])
+
+        user_dict = model_to_dict(user)
+        good_password = check_password_hash(user_dict['password'], payload['password'])
+
+        if (good_password):
+            login_user(user)
+            print(f"{current_user.username} is {current_user.name} in POST login.")
+            print(model_to_dict(user))
+
+            user_dict.pop('password')
+            user_dict.pop('confirm_password')
+
+            return jsonify(
+                data = user_dict,
+                message = f"Successfully logged in {user_dict['username']}",
+                status = 200
+            ), 200
+
+        else:
+            print("Email is no good")
+            return jsonify(
+                data = {},
+                message = "Email or password is incorrect.",
+                status = 401
+            ), 401
+
+    except models.DoesNotExist:
+        print("Email not found")
+        return jsonify(
+            data={},
+            message="Email or password is incorrect.",
+            status = 401
+        ), 401

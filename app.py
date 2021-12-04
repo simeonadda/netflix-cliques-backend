@@ -1,5 +1,6 @@
 from flask import Flask, jsonify, after_this_request
 from flask_cors import CORS
+from flask_login import LoginManager
 
 import os
 import models
@@ -12,6 +13,17 @@ PORT = 8000
 
 app = Flask(__name__)
 
+# LOGIN MANAGER
+app.secret_key = "qwertysimquertysim"
+login_manager = LoginManager()
+login_manager.init_app(app)
+
+@login_manager.user_loader
+def load_user(user_id):
+    try:
+        return models.User.get(user_id)
+    except models.DoesNotExist:
+        return None
 
 # CORS
 CORS(users, origins=['http://localhost:3000'], supports_credentials=True)
