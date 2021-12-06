@@ -37,6 +37,7 @@ class Clique(Model):
 
 # NETFLIX TITLE MODEL
 class Title(Model):
+    owner = ForeignKeyField(User, backref='titles')
     image = CharField()
     title = CharField()
     titleDetails = CharField()
