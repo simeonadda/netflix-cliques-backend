@@ -46,3 +46,20 @@ def create_clique():
         message = f"Successfully created {clique_dict['name']} for {clique_dict['owner']}",
         status = 201,
     ), 201
+
+# SHOW ROUTE FOR CLIQUE
+@cliques.route('/<id>', methods=['GET'])
+def get_one_clique(id):
+    clique = models.Clique.get_by_id(id)
+
+    clique_dict = model_to_dict(clique)
+    clique_dict['owner'].pop('password')
+    clique_dict['owner'].pop('confirm_password')
+    clique_dict['owner'].pop('email')
+
+    print(clique_dict)
+    return jsonify(
+        data = clique_dict,
+        message = "Success! 🎉",
+        status = 200
+    ), 200
