@@ -63,3 +63,34 @@ def get_one_clique(id):
         message = "Success! 🎉",
         status = 200
     ), 200
+
+# PUT ROUTE FOR UPDATING CLIQUE
+@cliques.route('/<id>', methods=['PUT'])
+def update_clique(id):
+    payload = request.get_json()
+
+    models.Clique.update(**payload).where(models.Clique.id == id).execute()
+
+    clique_dict = model_to_dict(models.Clique.get_by_id(id))
+    clique_dict['owner'].pop('password')
+    clique_dict['owner'].pop('confirm_password')
+    clique_dict['owner'].pop('email')
+
+    return jsonify(
+        data = clique_dict,
+        message = f"Clique {clique_dict['name']} updated successfully",
+        status = 200,
+    ), 200
+
+# DELETE ROUTE FOR CLIQUE
+@cliques.route('/<id>', methods=['DELETE'])
+def delete_clique(id):
+    delete_query = models.Clique.delete().where(models.Clique.id == id)
+    nums_of_rows_deleted = delete_query.execute()
+    print(nums_of_rows_deleted)
+
+    return jsonify(
+        data = {},
+        message = f"Successfully deleted the Clique {id.name}.",
+        status = 200,
+    ), 200
