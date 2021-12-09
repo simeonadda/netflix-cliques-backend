@@ -91,6 +91,6 @@ def delete_clique(id):
 
     return jsonify(
         data = {},
-        message = f"Successfully deleted the Clique {id.name}.",
+        message = f"Successfully deleted Clique {id.name}.",
         status = 200,
     ), 200
