@@ -51,7 +51,7 @@ class Title(Model):
 def initialize():
     DATABASE.connect()
 
-    # DATABASE.drop_tables([User])
+    # DATABASE.drop_tables([Title])
     DATABASE.create_tables([User, Clique, Title], safe=True)
     print("Connected on the DB and created tables if they don't already exist 🎉")
 

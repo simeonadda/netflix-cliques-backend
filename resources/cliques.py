@@ -43,7 +43,7 @@ def create_clique():
 
     return jsonify(
         data = clique_dict,
-        message = f"Successfully created {clique_dict['name']} for {clique_dict['owner']}",
+        message = f"Successfully created {clique_dict['name']} for {clique_dict['owner']}.",
         status = 201,
     ), 201
 
