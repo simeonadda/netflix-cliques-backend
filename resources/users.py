@@ -99,7 +99,7 @@ def login():
             ), 200
 
         else:
-            print("Email is no good")
+            print("Email or password is incorrect.")
             return jsonify(
                 data = {},
                 message = "Email or password is incorrect.",
@@ -140,9 +140,10 @@ def get_logged_in_user():
 
 
 # USER LOGOUT ROUTE
-@users.route('/logout', methods=['GET'])
+@users.route('/logout', methods=['DELETE'])
 def logout():
     logout_user()
+    print("Succesfully logged out.")
     return jsonify(
         data={},
         message = "Succesfully logged out.",

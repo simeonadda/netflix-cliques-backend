@@ -35,24 +35,55 @@ class Clique(Model):
         database = DATABASE
 
 
-# NETFLIX TITLE MODEL
-class Title(Model):
+# NETFLIX WATCHING NOW TITLE MODEL
+class WatchingNowTitle(Model):
     user = ForeignKeyField(User, backref='titles')
-    image = CharField()
+    img = CharField()
     title = CharField()
-    titleDetails = CharField()
-    filmId = IntegerField()
+    synopsis = CharField()
+    year = IntegerField()
 
     class Meta:
         database = DATABASE
 
+# NETFLIX FAVORITES TITLE MODEL
+class FavoritesTitle(Model):
+    user = ForeignKeyField(User, backref='titles')
+    img = CharField()
+    title = CharField()
+    synopsis = CharField()
+    year = IntegerField()
 
+    class Meta:
+        database = DATABASE
+
+# NETFLIX WATCHING NEXT TITLE MODEL
+class WatchingNextTitle(Model):
+    user = ForeignKeyField(User, backref='titles')
+    img = CharField()
+    title = CharField()
+    synopsis = CharField()
+    year = IntegerField()
+
+    class Meta:
+        database = DATABASE
+
+# NETFLIX WATCHED TITLE MODEL
+class WatchedTitle(Model):
+    user = ForeignKeyField(User, backref='titles')
+    img = CharField()
+    title = CharField()
+    synopsis = CharField()
+    year = IntegerField()
+
+    class Meta:
+        database = DATABASE
 
 def initialize():
     DATABASE.connect()
 
-    # DATABASE.drop_tables([Title])
-    DATABASE.create_tables([User, Clique, Title], safe=True)
+    # DATABASE.drop_tables([Title, User, Clique])
+    DATABASE.create_tables([User, Clique, WatchingNowTitle, FavoritesTitle, WatchingNextTitle, WatchedTitle], safe=True)
     print("Connected on the DB and created tables if they don't already exist 🎉")
 
     DATABASE.close()
