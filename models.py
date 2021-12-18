@@ -5,12 +5,13 @@ from flask_login import UserMixin
 
 if 'ON_HEROKU' in os.environ:
 
-    DATABASE = connect(os.environ.get('DATABASE_URL'))
+    DATABASE = connect(os.environ.get('DATABASE_URL')) or 'sqlite:///dogs.sqlite'
     # Connect to the database URL defined in the environment, falling
     # back to a local Sqlite database if no database URL is specified.
 
 else:
     DATABASE = SqliteDatabase('nfclx.sqlite')
+
 
 
 # USER MODEL
