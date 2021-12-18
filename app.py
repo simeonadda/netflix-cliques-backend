@@ -15,6 +15,8 @@ app = Flask(__name__)
 
 # LOGIN MANAGER
 app.secret_key = "qwertysimquertysim"
+app.config['SESSION_COOKIE_SAMESITE'] = "None"
+app.config['SESSION_COOKIE_SECURE'] = True
 login_manager = LoginManager()
 login_manager.init_app(app)
 
@@ -26,9 +28,9 @@ def load_user(user_id):
         return None
 
 # CORS
-CORS(users, origins=['http://localhost:3000'], supports_credentials=True)
-CORS(cliques, origins=['http://localhost:3000'], supports_credentials=True)
-CORS(titles, origins=['http://localhost:3000'], supports_credentials=True)
+CORS(users, origins=['http://localhost:3000', "https://netflix-cliques-fe-app.herokuapp.com"], supports_credentials=True)
+CORS(cliques, origins=['http://localhost:3000', "https://netflix-cliques-fe-app.herokuapp.com"], supports_credentials=True)
+CORS(titles, origins=['http://localhost:3000', "https://netflix-cliques-fe-app.herokuapp.com"], supports_credentials=True)
 
 app.register_blueprint(users, url_prefix='/api/v1/users')
 app.register_blueprint(cliques, url_prefix='/api/v1/cliques')
