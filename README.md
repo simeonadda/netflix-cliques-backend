@@ -1,6 +1,6 @@
 # Netflix Cliques Backend 
 
-This is the backend repository. 
+This is the backend repository. The frontend is linked [here](https://github.com/simeonadda/netflix-cliques-frontend). 
 
 ## Project Description
 
